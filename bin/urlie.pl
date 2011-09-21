@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 use POE
-  qw(Component::IRC  Component::IRC::Plugin::WWW::GetPageTitle  Component::IRC::Plugin::Connector);
+  qw(Component::IRC
+     Component::IRC::Plugin::WWW::GetPageTitle
+     Component::IRC::Plugin::Connector);
 
 our $CHAN   = '#oslohackerspace';
 our $NICK   = 'urlie';
@@ -36,21 +38,18 @@ sub _start {
             response_types => {
                 public  => 'notice',
                 privmsg => 'privmsg',
-                notice  => 'notice',
             },
             banned    => [],
             addressed => 0,
             triggers  => {
                 public  => qr/^/i,
-                notice  => qr/^/i,
                 privmsg => qr/^/i,
             },
-            listen_for_input => [qw(notice public privmsg)],
+            listen_for_input => [qw(public privmsg)],
             eat              => 1,
             debug            => 1,
             max_uris         => 2,
             find_uris        => 1,
-            addressed        => 0,
         )
     );
 
