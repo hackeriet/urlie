@@ -1,7 +1,8 @@
 Urlie is an IRC bot for the #oslohackerspace channel on Freenode.
+Proxie is an IRC proxy that urlie can connect to. Proxie allows restart
+urlie without losing connection to the IRC server.
 
-If you're interested in hacking on it, go ahead!
-
+If you're interested in hacking on these, please do!
 
 * Author:   Salve J. Nilsen <sjn-urlie@pvv.org>
 * License:  GPLv3

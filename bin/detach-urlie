@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function run_urlie () {
+    [ -d $HOME/log ] || mkdir -p $HOME/log;
+    [ -x ./urlie.pl ] || ( echo "Cannot run ./urlie.pl"; exit 1 );
+    nohup ./urlie.pl 2>&1 >$HOME/log/urlie.log &
+};
+
+run_urlie &

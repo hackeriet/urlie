@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function run_proxie () {
+    [ -d $HOME/log ] || mkdir -p $HOME/log;
+    [ -x ./proxie.pl ] || ( echo "Cannot run ./proxie.pl"; exit 1 );
+    nohup ./proxie.pl 2>&1 >$HOME/log/proxie.log &
+};
+
+run_proxie &
