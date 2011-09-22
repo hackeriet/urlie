@@ -1,0 +1,11 @@
+*.bak
+*.old
+blib/
+inc/
+_build/
+Makefile
+pm_to_blib
+Hackeriet-Urlie-*
+META.yml
+MYMETA.json
+MYMETA.yml

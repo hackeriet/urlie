@@ -1,0 +1,17 @@
+bin/detach-proxie
+bin/detach-urlie
+bin/proxie.pl
+bin/urlie.pl
+etc/urlierc-example
+inc/Module/Install.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/Can.pm
+inc/Module/Install/Fetch.pm
+inc/Module/Install/Metadata.pm
+inc/Module/Install/Win32.pm
+inc/Module/Install/WriteAll.pm
+MANIFEST
+META.yml
+MYMETA.json
+MYMETA.yml
+README
