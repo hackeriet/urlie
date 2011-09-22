@@ -8,19 +8,18 @@ use POE qw( Component::IRC::State
   Component::IRC::Plugin::Connector );
 use Data::Dumper::Concise;
 
-our $DEBUG = 1;
-
 my $configuration_file = "$ENV{HOME}/.urlierc";
 my $config             = Config::File::read_config_file($configuration_file);
 
+our $DEBUG = $config->{DEBUG} || 0;
 warn Dumper($config) if $DEBUG;
 
-our $SERVER   = $config->{Server}{Host};
-our $NICK     = $config->{Proxy}{Nick};
-our $PORT     = $config->{Proxy}{Port};
-our $PASSWORD = $config->{Proxy}{Password};
+our $SERVER   = $config->{Server}{Host}     || 'irc.freenode.net';
+our $NICK     = $config->{Proxy}{Nick}      || 'proxie_' . $$ & 1000;
+our $PORT     = $config->{Proxy}{Port}      || 26667;
+our $PASSWORD = $config->{Proxy}{Password}  || '';
 
-$0 = 'proxie_' . $NICK . '@' . $SERVER;
+$0 = 'proxie/' . $NICK . '@' . $SERVER . ':' . $PORT;
 
 my $irc = POE::Component::IRC::State->spawn( plugin_debug => $DEBUG, );
 

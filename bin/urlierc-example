@@ -1,0 +1,10 @@
+# Edit and copy to $HOME/.urlierc
+DEBUG = 1
+Proxy[Port] = 12345
+Proxy[Host] = localhost
+Proxy[Password] = secret
+Proxy[Nick] =                        # Autogenerate nick
+Server[Host] = irc.freenode.net
+Server[Chan] =                       # Autogenerate channel
+Server[Nick] =                       # Autogenerate nick
+Server[IRCName] = My IRC name is not set
