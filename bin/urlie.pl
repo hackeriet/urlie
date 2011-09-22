@@ -21,25 +21,31 @@ use Config::File qw(read_config_file);
 use POE qw( Component::IRC
   Component::IRC::Plugin::WWW::GetPageTitle
   Component::IRC::Plugin::Connector );
+use Data::Dumper::Concise;
+
+my $DEBUG = 1;
 
 my $configuration_file = "$ENV{HOME}/.urlierc";
 my $config             = Config::File::read_config_file($configuration_file);
-our $NICK     = $config->{Server}{Nick} . "_" . $$ % 1000;
+
+warn Dumper($config) if $DEBUG;
+
+our $NICK     = $config->{Server}{Nick};
+our $IRCNAME  = $config->{Server}{IRCName};
+our $CHAN     = $config->{Server}{Chan};
 our $SERVER   = $config->{Proxy}{Host};
 our $PORT     = $config->{Proxy}{Port};
 our $PASSWORD = $config->{Proxy}{Password};
-our $CHAN     = $config->{Server}{Chan};
 
-$0 = $NICK . $CHAN . '@' . $SERVER;
+$0 = 'urlie_' . $NICK . $CHAN . '@' . $SERVER;
 
 my $irc = POE::Component::IRC->spawn(
-    nick     => $NICK,
-    server   => $SERVER,
-    port     => $PORT,
-    password => $PASSWORD,
-    ircname  => 'sjn owns this bot',
-
-    #    plugin_debug => 1,
+    nick         => $NICK,
+    ircname      => $IRCNAME,
+    server       => $SERVER,
+    port         => $PORT,
+    password     => $PASSWORD,
+    plugin_debug => $DEBUG,
 );
 
 POE::Session->create(
@@ -67,7 +73,7 @@ sub _start {
             max_uris         => 2,
             banned           => [],
             eat              => 1,
-            debug            => 1,
+            debug            => $DEBUG,
             listen_for_input => [qw(public privmsg notice)],
             response_event   => 'irc_get_page_title',
             response_types   => {
