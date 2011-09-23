@@ -13,6 +13,8 @@ requires 'POE::Component::IRC' => 0,
     'POE::Component::IRC::Plugin::WWW::GetPageTitle' => 0,
     'Data::Dumper::Concise' => 0,
     'Config::File' => 0;
+
+recommends 'IO::Socket::SSL' => 0;
 # install_script 'bin/urlie.pl';
 # install_script 'bin/proxie.pl';
 
