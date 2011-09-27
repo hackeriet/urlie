@@ -15,6 +15,7 @@ sub S_public {
 
 package main;
 
+use 5.010_001;
 use strict;
 use warnings;
 use Config::File qw(read_config_file);
@@ -23,19 +24,20 @@ use POE qw( Component::IRC
   Component::IRC::Plugin::Connector );
 use Data::Dumper::Concise;
 
-my $configuration_file = "$ENV{HOME}/.urlierc";
+my $configuration_file = $ARGV[0] // "$ENV{HOME}/.urlierc";
 my $config             = Config::File::read_config_file($configuration_file);
 
 my $DEBUG = $config->{DEBUG} || 0;
 warn Dumper($config) if $DEBUG;
 
-our $NICK     = $config->{Server}{Nick}     || 'urlie_' . $$ % 1000;
-our $IRCNAME  = $config->{Server}{IRCName}  || 'urlie is a bot';
-our $CHAN     = $config->{Server}{Chan}     || '#testbot_' . $$ % 1000;
-our $SERVER   = $config->{Proxy}{Host}      || 'irc.freenode.net';
-our $PORT     = $config->{Proxy}{Port}      || 6667;
-our $PASSWORD = $config->{Proxy}{Password}  || '';
+our $NICK     = $config->{Server}{Nick}     // 'urlie_' . $$ % 1000;
+our $IRCNAME  = $config->{Server}{IRCName}  // 'urlie is a bot';
+our $CHAN     = $config->{Server}{Chan}     // '#testbot_' . $$ % 1000;
+our $SERVER   = $config->{Proxy}{Host}      // 'irc.freenode.net';
+our $PORT     = $config->{Proxy}{Port}      // 6667;
+our $PASSWORD = $config->{Proxy}{Password}  // '';
 
+# Set process name, so we can recognize it with ps(1)
 $0 = 'urlie/' . $NICK . $CHAN . '@' . $SERVER . ':' . $PORT;
 
 my $irc = POE::Component::IRC->spawn(
@@ -88,7 +90,6 @@ sub _start {
 }
 
 sub irc_001 {
-    print "";
     $_[KERNEL]->post( $_[SENDER] => join => $CHAN );
 }
 
