@@ -1,5 +1,7 @@
 *.bak
 *.old
+*.sqlite
+.*.swp
 blib/
 inc/
 _build/
